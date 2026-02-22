@@ -1,0 +1,31 @@
+[
+  {
+    "Character": "Noman",
+    "Dialogue": "Woah woah woah, buddy...",
+    "Animations": {
+      "Noman": "./drawings/noman/noman spawn.png"
+    }
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "Hey, this is actually my safe, so...",
+    "Animations": {
+      "Noman": "./drawings/noman/noman closed eyes smiling.png"
+    }
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "Mind leaving it alone?"
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "I have very important stuff in there..."
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "Ooh, there you are. Why'd you suddenly run o-",
+    "Animations": {
+      "Yesman": "./drawings/yesman/yesman P.jpg"
+    }
+  }
+]
