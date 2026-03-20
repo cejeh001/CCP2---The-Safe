@@ -1,13 +1,25 @@
 // import json dialogues
 import data from './Dialogue.json' with { type: 'json' };
-
+import fail from './fail.json' with {type: 'json'};
+import success from './success.json' with {type: 'json'};
 
 // GAME STATE
+
+// const GameState = {
+//   IDLE: "idle",
+//   DIALOGUE: "dialogue",
+//   SAFE_LOCKED: "safeLocked",
+//   SEPARATE: "separateClick"
+// };
 
 const GameState = {
   IDLE: "idle",
   DIALOGUE: "dialogue",
-  SAFE_LOCKED: "safeLocked"
+  SEPARATE: "separate",
+  TAB_WARNING: "tab_warning",
+  QTE: "qte",
+  RESULT_SUCCESS: "result_success",
+  RESULT_FAIL: "result_fail"
 };
 
 let currentState = GameState.IDLE;
@@ -19,8 +31,16 @@ let clickCount = 0;
 const maxStage = 5;
 let dialogueIndex = 0;
 
+let maxClicks = 10;
+let blowUpPoint = 30
+let separateClickCount = 0
+let isUrging = false;
+
+let closeTabMark = 60;
 
 let safeClicked = false;
+
+let urgeTimer = null;
 
 const safe = document.getElementById("safe");
 const clickText = document.getElementById("click-count");
@@ -47,12 +67,17 @@ class Character {
       // document.getElementById(this.name).classList.add("character");
       this.spawned = true;
     }
+    else {return};
   }
 
 
   playAnimation(animationSrc) {
-    if (this.image && animationSrc) {
+    if (this.image != animationSrc) {
       this.image.src = animationSrc;
+    }
+
+    else {
+      this.image = this.image;
     }
   }
 
@@ -118,6 +143,9 @@ const characters = {
 safe.addEventListener("click", () => {
   safeClicked = true;
 });
+window.addEventListener("beforeunload", () => {
+  // optional: save state / mark player "escaped"
+});
 
 
 // GAME LOOP
@@ -149,9 +177,14 @@ function update() {
       handleDialogueClick();
       break;
 
-    case GameState.SAFE_LOCKED:
+    case GameState.SEPARATE:
+      handleSeparateClick();
       // Deactivate safe clicking
 
+      break;
+
+    case GameState.QTE:
+      handleQTEClick();
       break;
   }
 
@@ -167,9 +200,11 @@ function handleIdleClick() {
   }
 
   if (clickCount === maxStage) {
+    // delete click count
+    clickText.remove();
     spawnCharacters();
     currentState = GameState.DIALOGUE;
-    advanceDialogue();
+    advanceDialogue(data);
   }
 }
 
@@ -199,9 +234,11 @@ function createCharacterImage(src, name){
 //   return img;
 // }
 
+// this is the point in the dialogue index where the separate state will activate
+let separateDialogueMark = 53;
 
 function handleDialogueClick() {
-  advanceDialogue();
+  advanceDialogue(data);
 
   // if (activeSpeaker) {
   //   const spoke = activeSpeaker.speak();
@@ -214,10 +251,23 @@ function handleDialogueClick() {
   // }
 }
 
-function advanceDialogue() {
-  if (dialogueIndex >= data.length) return;
+function handleQTEClick() {
+  if (!qteActive) return;
 
-  const entry = data[dialogueIndex];
+  qteSuccess = true;
+  endQTE();
+}
+
+function advanceDialogue(dialogueRoute) {
+  if (dialogueIndex >= dialogueRoute.length) return;
+  if (dialogueIndex === separateDialogueMark) currentState = GameState.SEPARATE;
+  if (dialogueIndex === closeTabMark) {
+    currentState = GameState.TAB_WARNING;
+    startTabCountdown();
+    return;
+  }
+
+  const entry = dialogueRoute[dialogueIndex];
 
   let speaker = characters[entry.Character];
 
@@ -261,9 +311,9 @@ function advanceDialogue() {
   // }
 
 
-  if (entry.Animations) {
-  for (const charName in entry.Animations) {
-    const animSrc = entry.Animations[charName];
+  if (entry.Animation) {
+  for (const charName in entry.Animation) {
+    const animSrc = entry.Animation[charName];
 
     const char = characters[charName];
 
@@ -314,18 +364,145 @@ function spawnCharacters() {
 
   Yesman = new Character(
     "Yesman",
-    "./drawings/yesman/yesman P.jpg"
+    "./drawings/yesman/yesman spawn.png"
   );
 
   Mommo = new Character(
     "Mommo",
-    "./drawings/mommo/mommo P.jpg"
+    "./drawings/mommo/Mommo tired.png"
   );
 
    // Now that we *have* instances, update the lookup:
   characters.Noman = Noman;
   characters.Yesman = Yesman;
   characters.Mommo = Mommo;
+}
+
+
+
+// clicks for safe only
+function handleSeparateClick(){
+  // set clickcount to 0
+  // clickCount = 0; bad bc it resets everytime, preventing anything from happening
+
+  separateClickCount++;
+
+  // if safe clicks reach max clicks, open safe sequence
+  if (separateClickCount >=  maxClicks){
+    // open safe sequence
+    openSafe("./drawings/opensafe.mp4");
+    return;
+  }
+
+  // use setTimeout to countdown to urge function; if three seconds pass, use urge function
+  // while loop checks if the dialogue index has reached the point where Yesman blows it up
+  // while (dialogueIndex < blowUpPoint){
+  //   setTimeout(urge(), 3000);
+  // }
+
+  if (!isUrging) {
+    isUrging = true;
+    urgeTimer = setTimeout(() => {
+      urge();
+      isUrging = false;
+    }, 3000);
+  }
+}
+
+
+
+function openSafe(video) {
+  const actualVideo = document.createElement("video");
+  actualVideo.id = "openSafe";
+  actualVideo.src = video;
+  actualVideo.autoplay = true;
+  actualVideo.onended = () => {
+    // fade away
+    actualVideo.visibility = hidden;
+    actualVideo.opacity = 0;
+    // video.transition = {visibility: 0s 2s,
+    //                      opacity: 2s linear
+    //                     };
+
+    currentState = GameState.Dialogue;
+    // maybe show final text or next sequence
+  };
+  document.getElementById("game-container").appendChild(video);
+}
+
+// let blowupCount = 0;
+
+function urge(){
+  advanceDialogue();
+  // blowupCount ++;
+  // yesman and mommo urge the player to open the safe. it changes with each countdown
+  // advanceDialogue();
+
+  // check if dialogue index has reached the point where Yesman blows up the safe
+  // if it has, go to opensafe animation
+  if (dialogueIndex === blowUpPoint) {
+    openSafe("./drawings/opensafe.mp4");
+    return;
+  };
+}
+
+
+
+
+let tabTimer;
+let qteActive = false;
+let qteSuccess = false;
+let qteTimer = null;
+
+function triggerQTE() {
+  currentState = GameState.QTE;
+  startQTE();
+}
+
+function startQTE() {
+  currentState = GameState.QTE;
+
+  qteActive = true;
+  qteSuccess = false;
+
+  // showQTEPrompt(); // e.g. "CLICK NOW!"
+
+  // player has 800ms–1500ms (tweak this for difficulty)
+  qteTimer = setTimeout(endQTE, 1000);
+}
+
+function endQTE() {
+  if (!qteActive) return;
+
+  qteActive = false;
+  clearTimeout(qteTimer);
+
+  if (qteSuccess) {
+    currentState = GameState.RESULT_SUCCESS;
+    advanceDialogue(success);
+  } else {
+    currentState = GameState.RESULT_FAIL;
+    advanceDialogue(fail);
+  }
+}
+
+function startTabCountdown() {
+  let timeLeft = 3;
+
+  tabTimer = setInterval(() => {
+    if (currentState !== GameState.TAB_WARNING) {
+      clearInterval(tabTimer);
+      return;
+    }
+
+    if (timeLeft > 0) {
+      showCountdown(timeLeft); // update UI text
+      timeLeft--;
+    } else {
+      clearInterval(tabTimer);
+      triggerQTE();
+    }
+  }, 1000);
 }
 
 // function that handles animations of characters

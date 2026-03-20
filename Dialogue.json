@@ -2,30 +2,534 @@
   {
     "Character": "Noman",
     "Dialogue": "Woah woah woah, buddy...",
-    "Animations": {
+    "Animation": {
       "Noman": "./drawings/noman/noman spawn.png"
     }
   },
   {
     "Character": "Noman",
     "Dialogue": "Hey, this is actually my safe, so...",
-    "Animations": {
+    "Animation": {
       "Noman": "./drawings/noman/noman closed eyes smiling.png"
     }
   },
   {
     "Character": "Noman",
-    "Dialogue": "Mind leaving it alone?"
+    "Dialogue": "Mind leaving it alone?",
+    "Animation": {
+      "Noman": "./drawings/noman/noman massive grin.png"
+    }
   },
   {
     "Character": "Noman",
-    "Dialogue": "I have very important stuff in there..."
+    "Dialogue": "I have very important stuff in there...",
+    "Animation": {}
   },
   {
     "Character": "Yesman",
     "Dialogue": "Ooh, there you are. Why'd you suddenly run o-",
-    "Animations": {
-      "Yesman": "./drawings/yesman/yesman P.jpg"
+    "Animation": {
+      "Noman": "./drawings/noman/noman looking to side.png",
+      "Yesman": "./drawings/yesman/yesman spawn.png"
     }
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "... The hell is this?",
+    "Animation": {
+      "Yesman": "./drawings/yesman/yesman looking behing him.png"
+    }
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "I dunno, they just appeared outta nowhere and started-",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "no not... whatever that is. This.",
+    "Animation": {
+      "Yesman": "./drawings/yesman/yesman looking forward talking.png"
+    }
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "None of ya business is what it is. Now help me get this guy outta here.",
+    "Animation": {
+      "Yesman": "./drawings/yesman/yesman looking to side neutral.png"
+    }
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "... Yo open the safe",
+    "Animation": {
+      "Yesman": "./drawings/yesman/yesman looking forward talking.png"
+    }
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "HUH?!",
+    "Animation": {
+      "Yesman": "./drawings/yesman/yesman looking to side neutral.png"
+    }
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "WHAT ARE YOU DOING?!",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "What are you hiding? That's what we wanna know.",
+    "Animation": {
+      "Noman": "./drawings/noman/noman rage to side.png"
+    }
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "Well you can't. End of story. If you're gonna just be annoying, please vacate the premises.",
+    "Animation": {
+      "Noman": "./drawings/noman/noman rage to side mouth closed.png"
+    }
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "ugh, fine...",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "Oh nooooo, big mysterious guy... don't click on the safe's lock until it breaks and open the door so we can see the contents inside~.",
+    "Animation": {
+      "Yesman": "./drawings/yesman/yesman zesty.png"
+    }
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "That would be soooo scandulous and immoral and DEFINITELY not what we want at all~.",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "How was that?",
+    "Animation": {
+      "Yesman": "./drawings/yesman/yesman big ahh grin.png"
+    }
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "I swear to god I'm bouta lock you in this safe too...",
+    "Animation": {
+      "Noman": "./drawings/noman/noman looking with disdain.png"
+    }
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "...",
+    "Animation": {
+      "Noman": "./drawings/noman/noman looking with disdain mouth closed.png"
+    }
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "Too?!",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "NOMAAAAAAAANNNN!!!",
+    "Animation": {
+      "Noman": "./drawings/noman/noman looking to side neutral.png",
+      "Mommo": "./drawings/mommo/Mommo tired.png"
+    }
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "Damn, why the hell are you running?!",
+    "Animation": {
+      "Yesman": "./drawings/yesman/yesman looking concerned at mommo.png"
+    }
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "... What is that?",
+    "Animation": {
+      "Mommo": "./drawings/mommo/mommo looking at safe.png"
+    }
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "I dunno, they just appeared outta nowhere and started-",
+    "Animation": {
+      "Mommo": "./drawings/mommo/mommo looking at yesman2.png"
+    }
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "Wait, that's not important! YOU MONSTER! OPEN THE SAFE RIGHT NOW!",
+    "Animation": {
+      "Mommo": "./drawings/mommo/mommo yelling at noman.png"
+    }
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "Ooooh, you know what's in the safe?",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "My son!",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "Dude, you put someone's son in there?",
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "Ugh, EVERYBODY IS SOMEONE'S SON",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "I'm no Einstein, but I don't think that's the point!",
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "None of you understand! I had to do it! I had no choice!",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "YOU HAD DOTTINGTON FOR TEN MINUTES! WHAT COULD HE HAVE POSSIBLY DONE TO DESERVE THIS?!!",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "Hold up...",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "You named your son Dottington?",
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "That's what I'm saying though, that weak ahh name!",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "101 Dalmations ahh name.",
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "Mickey Mouse clubhouse ahh name!",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "Leave my son alone!",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "Please, mysterious individual! Please click the safe and open it so my son can be safe!",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "You know... I haven't heard a single thing come out from the safe. Are you sure he's not dead?",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "He IS!",
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "Oh nah, yeah, he's definitely in there. I made sure of that.",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "See?! He's not even trying to hide it!",
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "I saved your lives, thank you very much! What kinda idiot would hide that!",
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "Especially when this big other-dimensional thing hasn't opened the safe yet!",
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "They're clearly on my side!",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "... right...",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "Hey, is it money you want? I-I can pay you to open it, please!",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "The developer isn't smart enough to program currency, Mommo.",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "Oh...",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "Well anyway, open the safe! We wanna see if her son's still alive in there!",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "He's not dead!",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "Only one way to find out! Open the safe! Open the safe! Open the safe!",
+    "Animation": {
+      "Mommo": "./drawings/mommo/Mommo looking at player.png"
+    }
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "Don't just stand there!",
+    "Animation": {
+      "Mommo": "./drawings/mommo/Mommo urge 1.png"
+    }
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "What're you waiting for?",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "... Okay, you're taking too long.",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "H-hey! What're you-",
+    "Animation": {
+      "Mommo": "./drawings/mommo/Mommo looking at Noman.png"
+    }
+  },
+  {
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "What was that for?! You could've killed-",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "H... huh...?",
+    "Animation": {}
+  },
+  {
+    "Character": "n/a",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "Damn, I might've blown him up... Sorry, Mommo.",
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "What the hell was that noi-",
+    "Animation": {}
+  },
+  {
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "WHERE THE HELL IS MY SON, NOMAN?!!",
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "What're you talking about, he's in the sa-",
+    "Animation": {}
+  },
+  {
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "...",
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "Oh yeahhh, I moved him somewhere else...",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "Somewhere else?!",
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "You'd have to be an idiot to think a safe would be enought to contain that DEMON SPAWN you call your son.",
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "I'm doing everyone here a favour! Wouldn't you agree, big guy?",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "Okay, this doesn't make any sense...",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "How're they supposed to know whether you're right or not if you don't even show what the baby looks like?",
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "Look, Yesman, I see your point, but there's a slight problem if I do that...",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "Oh let me guess what it is, me getting my SON back?!",
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "Yes, how did you know?",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "If you don't get Dottington right now, that won't be the only thing you'd be wondering about, I swear to Go-",
+    "Animation": {}
+  },
+  {
+    "Character": "safe rumbles here",
+    "Animation": {}
+  },
+  {
+    "Character": "Safe Recorder",
+    "Dialogue": "Is this thing on?",
+    "Animation": {}
+  },
+  {
+    "Character": "Safe Recorder",
+    "Dialogue": "Okay, hi you lot! I'm Redacted!",
+    "Animation": {}
+  },
+  {
+    "Character": "Safe Recorder",
+    "Dialogue": "Blue one, you want your kid, right?",
+    "Animation": {}
+  },
+  {
+    "Character": "Safe Recorder",
+    "Dialogue": "Kill the red one.",
+    "Animation": {}
+  },
+  {
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "Hey...",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "Close the tab.",
+    "Animation": {}
+  },
+  {
+    "Animation": {}
+  },
+  {
+    "Character": "Noman",
+    "Dialogue": "H-hey... wait now, there-",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "CLOSE THE DAMN TAB!!",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "YOU GOT THREE SECONDS!!",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "ONE...",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "TWO...",
+    "Animation": {}
+  },
+  {
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "THREE!!!!",
+    "Animation": {}
+  },
+  {
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "damn...",
+    "Animation": {}
+  },
+  {
+    "Character": "Safe Recorder",
+    "Dialogue": "good :)",
+    "Animation": {}
+  },
+  {
+    "Character": "Safe Recorder",
+    "Dialogue": "Now catch him.",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "Wait wha-",
+    "Animation": {}
   }
 ]
+

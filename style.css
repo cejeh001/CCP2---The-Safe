@@ -8,6 +8,8 @@ body {
   justify-content: center;
   align-items: center;
   /* height: 100vh; */
+  /* height: 1920px;
+  width: 1080px; */
 }
 
 #game-container {
