@@ -12,6 +12,12 @@ import success from './success.json' with {type: 'json'};
 //   SEPARATE: "separateClick"
 // };
 
+const DialogueRoute = {
+  DATA: data,
+  FAIL:fail,
+  SUCCESS: success
+};
+
 const GameState = {
   IDLE: "idle",
   DIALOGUE: "dialogue",
@@ -23,7 +29,7 @@ const GameState = {
 };
 
 let currentState = GameState.IDLE;
-
+let currentDialogue = DialogueRoute.DATA;
 
 // CORE VARIABLES
 
@@ -42,10 +48,31 @@ let safeClicked = false;
 
 let urgeTimer = null;
 
+// QTE VARIABLES
+let qteActive = false;
+let qteSuccess = false;
+let qteTimer = null;
+let qteAnimationFrame = null;
+let qteStartTime = null;
+let qteDuration = 2000; // How long the QTE lasts (milliseconds)
+let qteTarget = null;
+let qteContainer = null;
+
+// QTE animation parameters
+let qteStartX = -150; // Start off-screen left
+let qteEndX = null;   // Will be set based on screen width
+let qteY = null;      // Will be set randomly
+let qteElement = null;
+
 const safe = document.getElementById("safe");
 const clickText = document.getElementById("click-count");
 const dialogueBox = document.getElementById("dialogue-box");
 // const characterContainer = document.getElementById("character-container");
+
+function setSafeAnimation(src) {
+  if (!src) return;
+  safe.src = src;
+}
 
 // CHARACTER CLASS
 class Character {
@@ -72,14 +99,10 @@ class Character {
 
 
   playAnimation(animationSrc) {
-    if (this.image != animationSrc) {
-      this.image.src = animationSrc;
-    }
-
-    else {
-      this.image = this.image;
-    }
+  if (this.image && this.image.src !== animationSrc) {
+    this.image.src = animationSrc;
   }
+}
 
   speak(line) {
     // // check the character of the next dialogue line in JSON
@@ -162,8 +185,8 @@ gameLoop();
 // UPDATE
 
 function update() {
-  console.log("STATE:", currentState, "CLICKS:", clickCount);
-
+  console.log("STATE:", currentState, "CLICKS:", clickCount, "separate clicks:", separateClickCount);
+  console.log("CLICK WORKED", currentState, dialogueIndex);
 
   if (!safeClicked) return;
 
@@ -179,12 +202,20 @@ function update() {
 
     case GameState.SEPARATE:
       handleSeparateClick();
-      // Deactivate safe clicking
-
       break;
 
     case GameState.QTE:
       handleQTEClick();
+      break;
+
+    case GameState.RESULT_SUCCESS:
+      currentDialogue = DialogueRoute.SUCCESS;
+      advanceDialogue();
+      break;
+
+    case GameState.RESULT_FAIL:
+      currentDialogue = DialogueRoute.FAIL;
+      advanceDialogue();
       break;
   }
 
@@ -204,7 +235,7 @@ function handleIdleClick() {
     clickText.remove();
     spawnCharacters();
     currentState = GameState.DIALOGUE;
-    advanceDialogue(data);
+    advanceDialogue();
   }
 }
 
@@ -237,8 +268,9 @@ function createCharacterImage(src, name){
 // this is the point in the dialogue index where the separate state will activate
 let separateDialogueMark = 53;
 
+
 function handleDialogueClick() {
-  advanceDialogue(data);
+  advanceDialogue();
 
   // if (activeSpeaker) {
   //   const spoke = activeSpeaker.speak();
@@ -258,16 +290,27 @@ function handleQTEClick() {
   endQTE();
 }
 
-function advanceDialogue(dialogueRoute) {
-  if (dialogueIndex >= dialogueRoute.length) return;
-  if (dialogueIndex === separateDialogueMark) currentState = GameState.SEPARATE;
-  if (dialogueIndex === closeTabMark) {
-    currentState = GameState.TAB_WARNING;
-    startTabCountdown();
+function advanceDialogue() {
+  if (dialogueIndex >= currentDialogue.length) return;
+  
+  // Check if this dialogue entry should trigger QTE
+  const entry = currentDialogue[dialogueIndex];
+  
+  // Add QTE trigger check - you can mark specific dialogue entries to trigger QTE
+  if (entry.TriggerQTE === true) {
+    triggerQTE();
+    dialogueIndex++;
     return;
   }
+  
+  if (dialogueIndex === separateDialogueMark) currentState = GameState.SEPARATE;
+  // if (dialogueIndex === closeTabMark) {
+  //   currentState = GameState.TAB_WARNING;
+  //   startTabCountdown();
+  //   return;
+  // }
 
-  const entry = dialogueRoute[dialogueIndex];
+  // const entry = currentDialogue[dialogueIndex];
 
   let speaker = characters[entry.Character];
 
@@ -275,7 +318,13 @@ function advanceDialogue(dialogueRoute) {
   if (entry.Character === "Yesman") speaker = Yesman;
   if (entry.Character === "Mommo") speaker = Mommo;
 
-  if (!speaker) return;
+  // if there is no speaker, move on
+  if (!speaker) {
+    dialogueIndex++;
+    return;
+  };
+
+  
 
   // if (entry.Character === "Noman") {
 
@@ -312,26 +361,40 @@ function advanceDialogue(dialogueRoute) {
 
 
   if (entry.Animation) {
-  for (const charName in entry.Animation) {
-    const animSrc = entry.Animation[charName];
+    for (const charName in entry.Animation) {
+      const animSrc = entry.Animation[charName];
 
-    const char = characters[charName];
+      // 👇 HANDLE SAFE HERE
+      if (charName === "Safe") {
+        setSafeAnimation(animSrc);
+        continue;
+      }
 
-    if (char) {
-      // ensure they exist
-      char.spawn();
+      const char = characters[charName];
 
-      // set the animation
-      char.playAnimation(animSrc);
+      if (char) {
+        char.spawn();
+        char.playAnimation(animSrc);
+        }
     }
   }
+
+  // speaker.spawn();
+  // speaker.speak(entry.Dialogue);
+
+  if (entry.Character === "Safe") {
+    addDialogue("Safe", entry.Dialogue);
+  } else {
+    speaker.spawn();
+    speaker.speak(entry.Dialogue);
+    dialogueIndex++;
+  }
+  
 }
 
-  speaker.spawn();
-  speaker.speak(entry.Dialogue);
-  dialogueIndex++;
-}
-
+// function for checking animation. Not every object has a character speaking,
+// which causes a freeze. If there is no speaker or dialogue, it should move onto the object's animation instead.never mind
+// i'll just make the safe another character.
 
 // RENDER
 
@@ -391,6 +454,7 @@ function handleSeparateClick(){
   if (separateClickCount >=  maxClicks){
     // open safe sequence
     openSafe("./drawings/opensafe.mp4");
+    dialogueIndex = 59;
     return;
   }
 
@@ -409,25 +473,55 @@ function handleSeparateClick(){
   }
 }
 
+// character urging timing function
+// check if separate click is increasing in a certain amount of time
+// if so, do nothing
+// if it isn't, urge
+// function urgeTimer(){
 
+//   if (isUrging){
+//     return;
+//   }
+
+//   if (!isUrging) {
+//     isUrging = true;
+//     urgeTimer = setTimeout(() => {
+//       if (separateClickCount === separateClickCount){
+//         urge();
+//         isUrging = false;
+//       }
+//     }, 3000);
+//   }
+// };
+
+// function openSafe(video) {
+//   const actualVideo = document.createElement("video");
+//   actualVideo.id = "openSafe";
+//   actualVideo.src = video;
+//   actualVideo.autoplay = true;
+//   actualVideo.onended = () => {
+//     actualVideo.remove();
+//     currentState = GameState.DIALOGUE;
+//     advanceDialogue();
+//   };
+//   document.getElementById("game-container").appendChild(actualVideo);
+  
+// }
 
 function openSafe(video) {
-  const actualVideo = document.createElement("video");
-  actualVideo.id = "openSafe";
-  actualVideo.src = video;
-  actualVideo.autoplay = true;
-  actualVideo.onended = () => {
-    // fade away
-    actualVideo.visibility = hidden;
-    actualVideo.opacity = 0;
-    // video.transition = {visibility: 0s 2s,
-    //                      opacity: 2s linear
-    //                     };
+  const vid = document.createElement("video");
+  vid.src = video;
+  vid.autoplay = true;
 
-    currentState = GameState.Dialogue;
-    // maybe show final text or next sequence
-  };
-  document.getElementById("game-container").appendChild(video);
+  vid.addEventListener("ended", () => {
+    vid.remove();
+
+    currentState = GameState.DIALOGUE;
+    dialogueIndex = 60;
+    // advanceDialogue(); // continues from SAME index
+  });
+
+  document.getElementById("game-container").appendChild(vid);
 }
 
 // let blowupCount = 0;
@@ -450,60 +544,174 @@ function urge(){
 
 
 let tabTimer;
-let qteActive = false;
-let qteSuccess = false;
-let qteTimer = null;
+// QTE variables moved to top with other core variables
 
+// QTE FUNCTIONS
+
+// Function to initialize QTE elements
+function initQTE() {
+  qteContainer = document.getElementById("qte-container");
+  qteElement = document.getElementById("qte-target");
+  
+  if (!qteElement) {
+    console.error("QTE element not found!");
+    return;
+  }
+  
+  // Add click handler to the QTE target
+  qteElement.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (qteActive) {
+      qteSuccess = true;
+      endQTE();
+    }
+  });
+}
+
+// Function to trigger QTE from anywhere in your game
 function triggerQTE() {
+  if (currentState === GameState.QTE) return; // Already in QTE
+  
   currentState = GameState.QTE;
   startQTE();
 }
 
 function startQTE() {
-  currentState = GameState.QTE;
-
+  console.log("Starting QTE...");
+  
   qteActive = true;
   qteSuccess = false;
-
-  // showQTEPrompt(); // e.g. "CLICK NOW!"
-
-  // player has 800ms–1500ms (tweak this for difficulty)
-  qteTimer = setTimeout(endQTE, 1000);
+  
+  // Set random Y position (between 20% and 80% of screen height)
+  const windowHeight = window.innerHeight;
+  qteY = Math.random() * (windowHeight * 0.6) + (windowHeight * 0.2);
+  
+  // Set end X position (right side of screen)
+  qteEndX = window.innerWidth + 100;
+  
+  // Position the QTE target
+  qteElement.style.top = qteY + "px";
+  qteElement.style.left = qteStartX + "px";
+  
+  // Show the container
+  qteContainer.style.display = "block";
+  
+  // Start animation
+  qteStartTime = performance.now();
+  animateQTE(qteStartTime);
+  
+  // Set timeout to end QTE if player doesn't click
+  qteTimer = setTimeout(() => {
+    if (qteActive) {
+      endQTE();
+    }
+  }, qteDuration);
 }
 
-function endQTE() {
+function animateQTE(now) {
   if (!qteActive) return;
-
-  qteActive = false;
-  clearTimeout(qteTimer);
-
-  if (qteSuccess) {
-    currentState = GameState.RESULT_SUCCESS;
-    advanceDialogue(success);
-  } else {
-    currentState = GameState.RESULT_FAIL;
-    advanceDialogue(fail);
+  
+  const elapsed = now - qteStartTime;
+  const progress = Math.min(elapsed / qteDuration, 1);
+  
+  // Easing function for smooth movement (ease-out)
+  const easeOut = 1 - Math.pow(1 - progress, 3);
+  
+  // Calculate current X position
+  const currentX = qteStartX + (qteEndX - qteStartX) * easeOut;
+  
+  // Update element position
+  qteElement.style.left = currentX + "px";
+  
+  // Optional: Add scaling effect as it moves
+  const scale = 1 + progress * 0.5; // Grows slightly as it moves
+  qteElement.style.transform = `scale(${scale})`;
+  
+  // Continue animation if still active and not finished
+  if (progress < 1 && qteActive) {
+    qteAnimationFrame = requestAnimationFrame(animateQTE);
+  } else if (progress >= 1 && qteActive) {
+    // Reached the end without being clicked
+    endQTE();
   }
 }
 
-function startTabCountdown() {
-  let timeLeft = 3;
-
-  tabTimer = setInterval(() => {
-    if (currentState !== GameState.TAB_WARNING) {
-      clearInterval(tabTimer);
-      return;
-    }
-
-    if (timeLeft > 0) {
-      showCountdown(timeLeft); // update UI text
-      timeLeft--;
-    } else {
-      clearInterval(tabTimer);
-      triggerQTE();
-    }
-  }, 1000);
+function endQTE() {
+  console.log("Ending QTE. Success:", qteSuccess);
+  
+  if (!qteActive) return;
+  
+  qteActive = false;
+  
+  // Clean up
+  if (qteTimer) {
+    clearTimeout(qteTimer);
+    qteTimer = null;
+  }
+  
+  if (qteAnimationFrame) {
+    cancelAnimationFrame(qteAnimationFrame);
+    qteAnimationFrame = null;
+  }
+  
+  // Hide QTE container
+  if (qteContainer) {
+    qteContainer.style.display = "none";
+  }
+  
+  // Reset element position and transform
+  if (qteElement) {
+    qteElement.style.left = "";
+    qteElement.style.transform = "";
+  }
+  
+  // Change state based on success/failure
+  if (qteSuccess) {
+    console.log("QTE Success! Transitioning to RESULT_SUCCESS");
+    currentState = GameState.RESULT_SUCCESS;
+    currentDialogue = DialogueRoute.SUCCESS;
+    dialogueIndex = 0;
+    advanceDialogue();
+  } else {
+    console.log("QTE Failed! Transitioning to RESULT_FAIL");
+    currentState = GameState.RESULT_FAIL;
+    currentDialogue = DialogueRoute.FAIL;
+    dialogueIndex = 0;
+    advanceDialogue();
+  }
 }
+
+// Add window resize handler to recalculate QTE positions
+window.addEventListener('resize', () => {
+  if (qteActive) {
+    // If QTE is active, recalculate end position
+    qteEndX = window.innerWidth + 100;
+  }
+});
+
+// Call init when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+  initQTE();
+});
+
+// function startTabCountdown() {
+//   let timeLeft = 3;
+
+//   tabTimer = setInterval(() => {
+//     if (currentState !== GameState.TAB_WARNING) {
+//       clearInterval(tabTimer);
+//       return;
+//     }
+
+//     if (timeLeft > 0) {
+//       showCountdown(timeLeft); // update UI text
+//       timeLeft--;
+//     } else {
+//       clearInterval(tabTimer);
+//       triggerQTE();
+//     }
+//   }, 1000);
+// }
 
 // function that handles animations of characters
 // have a list of gifs of them

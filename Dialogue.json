@@ -43,21 +43,22 @@
   {
     "Character": "Noman",
     "Dialogue": "I dunno, they just appeared outta nowhere and started-",
-    "Animation": {}
+    "Animation": {
+      "Noman": "./drawings/noman/noman looking to side.png",
+      "Yesman": "./drawings/yesman/yesman spawn.png"
+    }
   },
   {
     "Character": "Yesman",
     "Dialogue": "no not... whatever that is. This.",
     "Animation": {
-      "Yesman": "./drawings/yesman/yesman looking forward talking.png"
+      "Yesman": "./drawings/yesman/yesman looking behing him.png"
     }
   },
   {
     "Character": "Noman",
     "Dialogue": "None of ya business is what it is. Now help me get this guy outta here.",
-    "Animation": {
-      "Yesman": "./drawings/yesman/yesman looking to side neutral.png"
-    }
+    "Animation": {}
   },
   {
     "Character": "Yesman",
@@ -76,32 +77,34 @@
   {
     "Character": "Noman",
     "Dialogue": "WHAT ARE YOU DOING?!",
-    "Animation": {}
+    "Animation": {
+      "Yesman": "./drawings/yesman/yesman looking forward talking.png"
+    }
   },
   {
     "Character": "Yesman",
     "Dialogue": "What are you hiding? That's what we wanna know.",
     "Animation": {
-      "Noman": "./drawings/noman/noman rage to side.png"
+      "Yesman": "./drawings/yesman/yesman looking to side neutral.png"
     }
   },
   {
     "Character": "Noman",
     "Dialogue": "Well you can't. End of story. If you're gonna just be annoying, please vacate the premises.",
-    "Animation": {
-      "Noman": "./drawings/noman/noman rage to side mouth closed.png"
-    }
+    "Animation": {}
   },
   {
     "Character": "Yesman",
     "Dialogue": "ugh, fine...",
-    "Animation": {}
+    "Animation": {
+      "Noman": "./drawings/noman/noman rage to side.png"
+    }
   },
   {
     "Character": "Yesman",
     "Dialogue": "Oh nooooo, big mysterious guy... don't click on the safe's lock until it breaks and open the door so we can see the contents inside~.",
     "Animation": {
-      "Yesman": "./drawings/yesman/yesman zesty.png"
+      "Noman": "./drawings/noman/noman rage to side mouth closed.png"
     }
   },
   {
@@ -113,31 +116,43 @@
     "Character": "Yesman",
     "Dialogue": "How was that?",
     "Animation": {
-      "Yesman": "./drawings/yesman/yesman big ahh grin.png"
+      "Yesman": "./drawings/yesman/yesman zesty.png"
     }
   },
   {
     "Character": "Noman",
     "Dialogue": "I swear to god I'm bouta lock you in this safe too...",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "...",
+    "Animation": {
+      "Yesman": "./drawings/yesman/yesman big ahh grin.png"
+    }
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "Too?!",
     "Animation": {
       "Noman": "./drawings/noman/noman looking with disdain.png"
     }
   },
   {
-    "Character": "Yesman",
-    "Dialogue": "...",
+    "Character": "Mommo",
+    "Dialogue": "NOMAAAAAAAANNNN!!!",
     "Animation": {
       "Noman": "./drawings/noman/noman looking with disdain mouth closed.png"
     }
   },
   {
     "Character": "Yesman",
-    "Dialogue": "Too?!",
+    "Dialogue": "Damn, why the hell are you running?!",
     "Animation": {}
   },
   {
     "Character": "Mommo",
-    "Dialogue": "NOMAAAAAAAANNNN!!!",
+    "Dialogue": "... What is that?",
     "Animation": {
       "Noman": "./drawings/noman/noman looking to side neutral.png",
       "Mommo": "./drawings/mommo/Mommo tired.png"
@@ -145,41 +160,31 @@
   },
   {
     "Character": "Yesman",
-    "Dialogue": "Damn, why the hell are you running?!",
+    "Dialogue": "I dunno, they just appeared outta nowhere and started-",
     "Animation": {
       "Yesman": "./drawings/yesman/yesman looking concerned at mommo.png"
     }
   },
   {
     "Character": "Mommo",
-    "Dialogue": "... What is that?",
+    "Dialogue": "Wait, that's not important! YOU MONSTER! OPEN THE SAFE RIGHT NOW!",
     "Animation": {
       "Mommo": "./drawings/mommo/mommo looking at safe.png"
     }
   },
   {
     "Character": "Yesman",
-    "Dialogue": "I dunno, they just appeared outta nowhere and started-",
+    "Dialogue": "Ooooh, you know what's in the safe?",
     "Animation": {
       "Mommo": "./drawings/mommo/mommo looking at yesman2.png"
     }
   },
   {
     "Character": "Mommo",
-    "Dialogue": "Wait, that's not important! YOU MONSTER! OPEN THE SAFE RIGHT NOW!",
+    "Dialogue": "My son!",
     "Animation": {
       "Mommo": "./drawings/mommo/mommo yelling at noman.png"
     }
-  },
-  {
-    "Character": "Yesman",
-    "Dialogue": "Ooooh, you know what's in the safe?",
-    "Animation": {}
-  },
-  {
-    "Character": "Mommo",
-    "Dialogue": "My son!",
-    "Animation": {}
   },
   {
     "Character": "Yesman",
@@ -309,33 +314,31 @@
   {
     "Character": "Yesman",
     "Dialogue": "Only one way to find out! Open the safe! Open the safe! Open the safe!",
+    "Animation": {}
+  },
+  {
+    "Character": "Mommo",
+    "Dialogue": "Don't just stand there!",
+    "Animation": {}
+  },
+  {
+    "Character": "Yesman",
+    "Dialogue": "What're you waiting for?",
     "Animation": {
       "Mommo": "./drawings/mommo/Mommo looking at player.png"
     }
   },
   {
-    "Character": "Mommo",
-    "Dialogue": "Don't just stand there!",
+    "Character": "Yesman",
+    "Dialogue": "... Okay, you're taking too long.",
     "Animation": {
       "Mommo": "./drawings/mommo/Mommo urge 1.png"
     }
   },
   {
-    "Character": "Yesman",
-    "Dialogue": "What're you waiting for?",
-    "Animation": {}
-  },
-  {
-    "Character": "Yesman",
-    "Dialogue": "... Okay, you're taking too long.",
-    "Animation": {}
-  },
-  {
     "Character": "Mommo",
     "Dialogue": "H-hey! What're you-",
-    "Animation": {
-      "Mommo": "./drawings/mommo/Mommo looking at Noman.png"
-    }
+    "Animation": {}
   },
   {
     "Animation": {}
@@ -343,7 +346,9 @@
   {
     "Character": "Mommo",
     "Dialogue": "What was that for?! You could've killed-",
-    "Animation": {}
+    "Animation": {
+      "Mommo": "./drawings/mommo/Mommo looking at Noman.png"
+    }
   },
   {
     "Character": "Mommo",
@@ -351,8 +356,8 @@
     "Animation": {}
   },
   {
-    "Character": "n/a",
-    "Animation": {}
+    "Character": "Safe",
+    "Animation": {"Safe": "./drawings/safe/safe anim placeholder.png"}
   },
   {
     "Character": "Yesman",
@@ -436,26 +441,25 @@
     "Animation": {}
   },
   {
-    "Character": "safe rumbles here",
-    "Animation": {}
+    "Animation": {"Safe": "./drawings/safe/safe anim placeholder.png"}
   },
   {
-    "Character": "Safe Recorder",
+    "Character": "Safe",
     "Dialogue": "Is this thing on?",
     "Animation": {}
   },
   {
-    "Character": "Safe Recorder",
+    "Character": "Safe",
     "Dialogue": "Okay, hi you lot! I'm Redacted!",
-    "Animation": {}
+    "Animation": {"Safe": "safe-0.png"}
   },
   {
-    "Character": "Safe Recorder",
+    "Character": "Safe",
     "Dialogue": "Blue one, you want your kid, right?",
     "Animation": {}
   },
   {
-    "Character": "Safe Recorder",
+    "Character": "Safe",
     "Dialogue": "Kill the red one.",
     "Animation": {}
   },
@@ -517,19 +521,19 @@
     "Animation": {}
   },
   {
-    "Character": "Safe Recorder",
+    "Character": "Safe",
     "Dialogue": "good :)",
     "Animation": {}
   },
   {
-    "Character": "Safe Recorder",
+    "Character": "Safe",
     "Dialogue": "Now catch him.",
     "Animation": {}
   },
   {
     "Character": "Mommo",
     "Dialogue": "Wait wha-",
-    "Animation": {}
+    "Animation": {},
+    "TriggerQTE": true
   }
 ]
-
